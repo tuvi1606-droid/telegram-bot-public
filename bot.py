@@ -6,7 +6,13 @@ from telegram.ext import (
 )
 
 TOKEN = os.getenv("8584360227:AAG_qlwNmluJTaz9Xil6eZD4ObRbOzxGI5c")
-ADMIN_ID = int(os.getenv("8384960756"))
+ADMIN_ID_RAW = os.getenv("8384960756")
+
+if not TOKEN or not ADMIN_ID_RAW:
+    raise Exception("❌ Thiếu TOKEN hoặc ADMIN_ID trong Environment Variables")
+
+ADMIN_ID = int(ADMIN_ID_RAW)
+
 
 # ===== DATABASE =====
 conn = sqlite3.connect("users.db", check_same_thread=False)
