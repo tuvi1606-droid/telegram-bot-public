@@ -1,6 +1,4 @@
 import os
-print("TOKEN =", os.getenv("TOKEN"))
-print("ADMIN_ID =", os.getenv("ADMIN_ID"))
 import os, random, string, sqlite3, base64
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import (
