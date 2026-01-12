@@ -66,18 +66,19 @@ def random_stk():
 # ===== WEBHOOK =====
 @app.route("/telegram", methods=["POST"])
 def telegram():
-    data = request.get_json() or {}
+    data = request.get_json(force=True)
+    print("TELEGRAM UPDATE:", data, flush=True)
 
-    if "message" in data:
-        msg = data["message"]
-        uid = msg["chat"]["id"]
-        text = msg.get("text","")
+    if "message" not in data:
+        return "ok"
 
-        cur.execute("INSERT OR IGNORE INTO users(user_id,username) VALUES(?,?)",
-                    (uid, msg["from"].get("username","")))
-        db.commit()
+    chat_id = data["message"]["chat"]["id"]
+    text = data["message"].get("text", "")
 
-        if text == "/start":
+    if text == "/start":
+        send_telegram(chat_id, "🤖 Bot đã sẵn sàng")
+
+    return "ok"
             menu(uid)
 
     if "callback_query" in data:
