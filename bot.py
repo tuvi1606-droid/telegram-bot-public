@@ -6,6 +6,13 @@ app = Flask(__name__)
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
 
+def send_message(chat_id, text):
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    requests.post(url, json={
+        "chat_id": chat_id,
+        "text": text
+    })
+
 @app.route("/")
 def home():
     return "Bot is running"
@@ -15,16 +22,17 @@ def telegram():
     data = request.get_json(force=True)
     print("UPDATE:", data, flush=True)
 
-    if "message" not in data:
+    message = data.get("message")
+    if not message:
         return "ok"
 
-    chat_id = data["message"]["chat"]["id"]
-    text = data["message"].get("text", "")
+    chat_id = message["chat"]["id"]
+    text = message.get("text", "")
 
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-    requests.post(url, json={
-        "chat_id": chat_id,
-        "text": "🤖 Bot đã sẵn sàng"
-    })
+    if text.startswith("/start"):
+        send_message(chat_id, "🤖 Bot đã sẵn sàng hoạt động")
+
+    else:
+        send_message(chat_id, "📌 Gõ /start để bắt đầu")
 
     return "ok"
