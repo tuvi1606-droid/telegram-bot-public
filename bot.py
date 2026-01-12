@@ -1,18 +1,18 @@
 import os
-import os, random, string, sqlite3, base64
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.ext import (
-    ApplicationBuilder, CommandHandler, CallbackQueryHandler,
-    MessageHandler, ConversationHandler, ContextTypes, filters
-)
 
-TOKEN = os.getenv("8584360227:AAG_qlwNmluJTaz9Xil6eZD4ObRbOzxGI5c")
-ADMIN_ID_RAW = os.getenv("8384960756")
+TOKEN = os.getenv("TOKEN")
+ADMIN_ID_RAW = os.getenv("ADMIN_ID")
 
-if not TOKEN or not ADMIN_ID_RAW:
+if TOKEN is None or ADMIN_ID_RAW is None:
     raise Exception("❌ Thiếu TOKEN hoặc ADMIN_ID trong Environment Variables")
 
+ADMIN_ID_RAW = ADMIN_ID_RAW.strip()
+
+if not ADMIN_ID_RAW.isdigit():
+    raise Exception("❌ ADMIN_ID phải là số")
+
 ADMIN_ID = int(ADMIN_ID_RAW)
+
 
 
 # ===== DATABASE =====
