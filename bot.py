@@ -36,3 +36,4 @@ def telegram():
         send_message(chat_id, "📌 Gõ /start để bắt đầu")
 
     return "ok"
+print("BOT_TOKEN =", BOT_TOKEN, flush=True)
