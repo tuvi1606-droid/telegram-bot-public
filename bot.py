@@ -5,8 +5,8 @@ from telegram.ext import (
     MessageHandler, ConversationHandler, ContextTypes, filters
 )
 
-TOKEN = os.getenv("TOKEN")
-ADMIN_ID = int(os.getenv("ADMIN_ID"))
+TOKEN = os.getenv("8584360227:AAG_qlwNmluJTaz9Xil6eZD4ObRbOzxGI5c")
+ADMIN_ID = int(os.getenv("8384960756"))
 
 # ===== DATABASE =====
 conn = sqlite3.connect("users.db", check_same_thread=False)
